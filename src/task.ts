@@ -8,11 +8,9 @@ export interface Task {
 }
 
 export class ToDoList {
-  private currentId: number;
-  private tasks: Task[];
+  tasks: Task[];
 
   constructor() {
-    this.currentId = 0;
     this.tasks = [];
   }
 
@@ -29,56 +27,54 @@ export class ToDoList {
     }
   }
 
-  saveTasksToJSON() {
-    return new Promise<void>((resolve, reject) => {
-      fs.truncate("./tasks.json", (err) => {
-        if (err) {
-          console.log("Error clearing task list:", err);
-          reject(err);
-        } else {
-          fs.appendFile(
-            "./tasks.json",
-            JSON.stringify(this.tasks),
-            "utf8",
-            (err) => {
-              if (err) {
-                console.log("Error saving task list:", err);
-                reject(err);
-              } else {
-                console.log("Task list saved successfully!");
-                resolve();
-              }
-            }
-          );
-        }
-      });
-    });
-  }
-
   // saveTasksToJSON() {
   //   return new Promise<void>((resolve, reject) => {
-  //     fs.writeFile(
-  //       "./tasks.json",
-  //       JSON.stringify(this.tasks),
-  //       "utf8",
-  //       (err) => {
-  //         if (err) {
-  //           console.log("Error saving task list:", err);
-  //           reject(err);
-  //         } else {
-  //           console.log("Task list saved successfully!");
-  //           resolve();
-  //         }
+  //     fs.truncate("./tasks.json", (err) => {
+  //       if (err) {
+  //         console.log("Error clearing task list:", err);
+  //         reject(err);
+  //       } else {
+  //         fs.appendFile(
+  //           "./tasks.json",
+  //           JSON.stringify(this.tasks),
+  //           "utf8",
+  //           (err) => {
+  //             if (err) {
+  //               console.log("Error saving task list:", err);
+  //               reject(err);
+  //             } else {
+  //               console.log("Task list saved successfully!");
+  //               resolve();
+  //             }
+  //           }
+  //         );
   //       }
-  //     );
+  //     });
   //   });
   // }
 
+  saveTasksToJSON() {
+    return new Promise<void>((resolve, reject) => {
+      fs.writeFile(
+        "./tasks.json",
+        JSON.stringify(this.tasks),
+        "utf8",
+        (err) => {
+          if (err) {
+            console.log("Error saving task list:", err);
+            reject(err);
+          } else {
+            console.log("Task list saved successfully!");
+            resolve();
+          }
+        }
+      );
+    });
+  }
 
   public async addTask(name: string, description: string): Promise<void> {
     this.loadTasksFromJSON();
 
-    // const taskId = await this.generateUniqueId();
     const task: Task = {
       id: this.tasks.length.toString(),
       name: name,

@@ -14,18 +14,18 @@ program
   });
 
 program
-  .command("complete <taskId>")
+  .command("complete <name>")
   .description("Mark a task as completed")
-  .action((taskId) => {
-    todoList.completeTask(taskId);
+  .action((taskName) => {
+    todoList.completeTask(taskName);
     console.log("Task completed successfully!");
   });
 
 program
-  .command("delete <taskId>")
+  .command("delete <name>")
   .description("Delete a task")
-  .action((taskId) => {
-    todoList.deleteTask(taskId);
+  .action((taskName) => {
+    todoList.deleteTask(taskName);
     console.log("Task deleted successfully!");
   });
 
