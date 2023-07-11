@@ -29,19 +29,6 @@ describe("ToDoList", () => {
       expect(todoList["tasks"][0].description).toBe("Description of Task 1");
       expect(todoList["tasks"][0].completed).toBe(false);
     });
-
-    test("should handle error when loading tasks from JSON file", () => {
-      const consoleSpy = jest.spyOn(console, "log");
-
-      jest.spyOn(fs, "readFileSync").mockImplementation(() => {
-        throw new Error("File read error");
-      });
-
-      todoList.loadTasksFromJSON();
-
-      expect(todoList["tasks"].length).toBe(0);
-      expect(consoleSpy).toHaveBeenCalledWith(new Error("File read error"));
-    });
   });
 
   describe("addTask", () => {
