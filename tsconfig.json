@@ -4,7 +4,6 @@
     "module": "commonjs",
     "sourceMap": true,
     "rootDir": "./",
-    "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
     "noEmitOnError": false,
@@ -12,9 +11,6 @@
   },
   "include": [
     "./src/**/*",
-    "./tests/**/*",
-    "webpack.config.js",
-    "public/app.ts",
-    "public/app.js",
+    "./tests/**/*"
   ]
 }

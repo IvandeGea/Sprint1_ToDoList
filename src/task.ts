@@ -13,10 +13,15 @@ export class ToDoList {
   constructor() {
     this.tasks = [];
   }
+  filePath = "./src/tasks.json";
 
   loadTasksFromJSON(): void {
+    if (!fs.existsSync(this.filePath)) {
+      fs.writeFileSync(this.filePath, "[]", "utf8");
+    }
+
     try {
-      const data = fs.readFileSync("./tasks.json", "utf8");
+      const data = fs.readFileSync("./src/tasks.json", "utf8");
 
       const parsedData = JSON.parse(data);
 
@@ -26,32 +31,6 @@ export class ToDoList {
       this.tasks = [];
     }
   }
-
-  // saveTasksToJSON() {
-  //   return new Promise<void>((resolve, reject) => {
-  //     fs.truncate("./tasks.json", (err) => {
-  //       if (err) {
-  //         console.log("Error clearing task list:", err);
-  //         reject(err);
-  //       } else {
-  //         fs.appendFile(
-  //           "./tasks.json",
-  //           JSON.stringify(this.tasks),
-  //           "utf8",
-  //           (err) => {
-  //             if (err) {
-  //               console.log("Error saving task list:", err);
-  //               reject(err);
-  //             } else {
-  //               console.log("Task list saved successfully!");
-  //               resolve();
-  //             }
-  //           }
-  //         );
-  //       }
-  //     });
-  //   });
-  // }
 
   saveTasksToJSON() {
     return new Promise<void>((resolve, reject) => {

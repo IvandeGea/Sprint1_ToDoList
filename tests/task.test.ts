@@ -1,4 +1,4 @@
-import fs from "fs";
+import * as fs from "fs";
 import { ToDoList } from "../src/task";
 
 jest.mock("fs");
